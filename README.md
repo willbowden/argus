@@ -1,2 +1,2 @@
-# odb
-An Open-Source Linux Debugger. Created as C++ practice.
+# Argus
+A modern, TUI-first debugger optimised for cybersecurity workflows.
