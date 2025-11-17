@@ -1,5 +1,5 @@
 COMPILER = g++
-OPTIONS = -Wall -Werror -pedantic -MMD -MP -I $(INCLUDE) -g
+OPTIONS = -Wall -Werror -pedantic -fsanitize=address -MMD -MP -I $(INCLUDE) -g
 COMPILE = $(COMPILER) $(OPTIONS)
 
 SRC = src
@@ -11,7 +11,7 @@ SOURCES = $(wildcard $(SRC)/*.cpp)
 OBJECTS = $(patsubst $(SRC)/%.cpp,$(BUILD)/%.o,$(SOURCES))
 DEPS = $(OBJECTS:.o=.d)
 
-TARGET = $(BIN)/odb
+TARGET = $(BIN)/argus
 
 $(shell mkdir -p $(BUILD) $(BIN) $(SAVE))
 

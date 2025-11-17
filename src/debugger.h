@@ -7,6 +7,8 @@ public:
 		: m_program_name {std::move(program_name)}, m_pid {pid} {}
 
 	void run();
+	void handle_command(const std::string& line);
+	void continue_execution();
 
 private:
 	std::string m_program_name;

@@ -19,8 +19,10 @@ int main(int argc, char* argv[]) {
 
 	if (pid == 0) {
 		// Tracee process
-		ptrace(PTRACE_TRACEME, nullptr, nullptr);
+		ptrace(PTRACE_TRACEME, 0, nullptr, nullptr);
 		execl(argv[1], argv[1], nullptr);
+
+		_exit(1);
 	} else {
 		// Tracer process
 		Debugger dbg {argv[1], pid};		
