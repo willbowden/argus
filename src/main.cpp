@@ -3,13 +3,13 @@
 #include <unistd.h>
 #include <sys/ptrace.h>
 #include <sys/user.h>
-#include <sys/wait.h>
+
+#include "debugger.h"
 
 using namespace std;
 
 int main(int argc, char* argv[]) {
-	int wait_status;
-
+	// TODO: Allow program name to be specified when running
 	if (argc < 2) {
 		cerr << "Please provide a program name";
 		return -1;
@@ -18,14 +18,13 @@ int main(int argc, char* argv[]) {
 	int pid = fork();
 
 	if (pid == 0) {
-		puts("Child!");
+		// Tracee process
 		ptrace(PTRACE_TRACEME, nullptr, nullptr);
 		execl(argv[1], argv[1], nullptr);
 	} else {
-		puts("Parent!");
-		waitpid(pid, &wait_status, 0);
-		char c = getchar();
-		putchar(c);
+		// Tracer process
+		Debugger dbg {argv[1], pid};		
+		dbg.run();
 	}
 
 	return 0;
