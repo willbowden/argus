@@ -9,6 +9,7 @@ public:
 	void run();
 	void handle_command(const std::string& line);
 	void continue_execution();
+	void quit();
 
 private:
 	std::string m_program_name;

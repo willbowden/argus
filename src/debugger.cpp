@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <sys/wait.h>
 #include <string>
 #include <sys/ptrace.h>
@@ -40,6 +41,8 @@ void Debugger::handle_command(const std::string& line) {
 
 	if (is_prefix(command, "cont")) {
 		continue_execution();
+	} else if (is_prefix(command, "q")) {
+		quit();
 	} else {
 		std::cerr << "Unknown command" << std::endl;
 	}
@@ -50,5 +53,15 @@ void Debugger::continue_execution() {
 	
 	int wait_status;
 	waitpid(m_pid, &wait_status, 0);
-	std::cout << "Continued" << std::endl;
+}
+
+void Debugger::quit() {
+	kill(m_pid, SIGKILL); 
+
+	int wait_status;
+	waitpid(m_pid, &wait_status, 0);
+
+	printf("Goodbye!\n");
+
+	exit(0);
 }

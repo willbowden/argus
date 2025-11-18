@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
 	if (pid == 0) {
 		// Tracee process
 		ptrace(PTRACE_TRACEME, 0, nullptr, nullptr);
-		execl(argv[1], argv[1], nullptr);
+		execvp(argv[1], &argv[1]);
 
 		_exit(1);
 	} else {
